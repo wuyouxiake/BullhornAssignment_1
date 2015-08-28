@@ -78,18 +78,17 @@ public class GetMyProfile extends HttpServlet {
 			if(postList ==null ||postList.isEmpty()){
 				postList=null;
 			}
-			System.out.println("222");
+			
 			
 		String fullList = "";
 		
 		for(int i=0;i<postList.size();i++)
         {
-			System.out.println("333");
+			
             fullList+="<li class=\"list-group-item\"><img src=\""+pl+"\" style=\"width:40px;height:40px\">"
             		+": "+postList.get(i).getContent()+"</li>";
             
         }
-		
 //get sent list		
 		String qString3 = "select m from Message m where m.sender = ?1 order by m.id desc";
 		TypedQuery<Message> q3 = em.createQuery(qString3, Message.class);
@@ -98,10 +97,9 @@ public class GetMyProfile extends HttpServlet {
 		
 		sentList=q3.getResultList();
 			if(sentList ==null ||sentList.isEmpty()){
-				//sentList=null;
+				sentList=null;
 			}
 			
-		
 		String sentText = "";
 		for(int i=0;i<sentList.size();i++)
         {
@@ -134,7 +132,7 @@ public class GetMyProfile extends HttpServlet {
 		            
 		        }		
 		
-		
+				
 		
 		//Set response content type
 				response.setContentType("text/html");
