@@ -12,6 +12,23 @@
 <title>Post</title>
 </head>
 <body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Bull Horn</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="AddPost.html">Post</a></li>
+        <li><a href="GetPost">Posted</a></li>
+        <li><a href="search.html">Search</a></li>
+        <li><a href="signin.html">Sign In</a></li>
+        <li><a href="signup.html">Sign Up</a></li>
+        <li><a href="SignOut">SignOut</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 <div class="container">
 <ul class="list-group">
    ${fullList}

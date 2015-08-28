@@ -21,14 +21,14 @@ import model.User;
 /**
  * Servlet implementation class AddComment
  */
-@WebServlet("/Search")
-public class Search extends HttpServlet {
+@WebServlet("/SearchUserPost")
+public class SearchUserPost extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Search() {
+    public SearchUserPost() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,24 +37,17 @@ public class Search extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(true);
-		String user_name =(String) session.getAttribute("user_name");
-		if(user_name==null){
-			response.setContentType("text/html");
-			String alert = "Please log in";
-			request.setAttribute("alert", alert);
-			getServletContext().getRequestDispatcher("/error.jsp")
-			.include(request, response);
-		}else{
-		
-		//String user_id = request.getParameter("user_id");
-		String target = request.getParameter("target");
+		String target =request.getParameter("target");
+		String userName =request.getParameter("userName");
+		System.out.println(userName);
+		System.out.println(target);
 		
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
 		
-		String qString = "select c from Content c where c.content LIKE ?1";
+		String qString = "select c from Content c where c.userName = ?1 and c.content LIKE ?2";
 		TypedQuery<Content> q = em.createQuery(qString, Content.class);
-		q.setParameter(1, "%" + target + "%");
+		q.setParameter(1, userName);
+		q.setParameter(2, "%" + target + "%");
 		
 		List<Content> contentList;
 		try{
@@ -65,7 +58,7 @@ public class Search extends HttpServlet {
 		String fullList = "";
 		for(int i=0;i<contentList.size();i++)
         {
-            fullList+="<li class=\"list-group-item\">"+contentList.get(i).getUserName()+": "+contentList.get(i).getContent()+"</li>";
+            fullList+="<li class=\"list-group-item\">"+contentList.get(i).getContent()+"</li>";
             
         }
 		request.setAttribute("fullList", fullList);
@@ -75,7 +68,7 @@ public class Search extends HttpServlet {
 		.forward(request, response);
 		}catch(Exception e){
 			}
-		}
+		
 		
 		
 	}
