@@ -10,30 +10,29 @@ import javax.persistence.*;
  * 
  */
 @Entity
+@Table(name="CONTENT")
 @NamedQuery(name="Content.findAll", query="SELECT c FROM Content c")
 public class Content implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
-	private int id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
 
 	private String content;
 
-	@Column(name="USER_ID")
-	private String userId;
+	@Column(name="USER_NAME")
+	private String userName;
 
 	public Content() {
 	}
 
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(int i) {
-		this.id = i;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getContent() {
@@ -44,12 +43,12 @@ public class Content implements Serializable {
 		this.content = content;
 	}
 
-	public String getUserId() {
-		return this.userId;
+	public String getUserName() {
+		return this.userName;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 }

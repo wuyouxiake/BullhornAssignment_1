@@ -34,7 +34,6 @@ public class GetPost extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("null")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
@@ -51,7 +50,7 @@ public class GetPost extends HttpServlet {
 		String fullList = "";
 		for(int i=0;i<content.size();i++)
         {
-            fullList+="<li class=\"list-group-item\">"+content.get(i).getUserId()+": "+content.get(i).getContent()+"</li>";
+            fullList+="<li class=\"list-group-item\">"+content.get(i).getUserName()+": "+content.get(i).getContent()+"</li>";
             
         }
 		
