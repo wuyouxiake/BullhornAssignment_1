@@ -84,6 +84,8 @@ public class GetUserDetail extends HttpServlet {
 						.forward(request, response);
 				fullList = "";
 				fullUser = "";
+				postList.clear();
+				userDetail.clear();
 		}catch(Exception e){
 		}finally{
 			em.close();

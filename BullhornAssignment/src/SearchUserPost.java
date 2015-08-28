@@ -39,12 +39,10 @@ public class SearchUserPost extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String target =request.getParameter("target");
 		String userName =request.getParameter("userName");
-		System.out.println(userName);
-		System.out.println(target);
 		
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
 		
-		String qString = "select c from Content c where c.userName = ?1 and c.content LIKE ?2";
+		String qString = "select c from Content c where c.userName = ?1 and c.content LIKE ?2 order by c.id desc";
 		TypedQuery<Content> q = em.createQuery(qString, Content.class);
 		q.setParameter(1, userName);
 		q.setParameter(2, "%" + target + "%");
