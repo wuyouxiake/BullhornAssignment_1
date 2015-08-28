@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
 
 
@@ -10,7 +9,6 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name="CONTENT")
 @NamedQuery(name="Content.findAll", query="SELECT c FROM Content c")
 public class Content implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -20,6 +18,8 @@ public class Content implements Serializable {
 	private long id;
 
 	private String content;
+
+	private String photolink;
 
 	@Column(name="USER_NAME")
 	private String userName;
@@ -41,6 +41,14 @@ public class Content implements Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getPhotolink() {
+		return this.photolink;
+	}
+
+	public void setPhotolink(String photolink) {
+		this.photolink = photolink;
 	}
 
 	public String getUserName() {

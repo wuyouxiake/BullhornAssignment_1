@@ -26,6 +26,8 @@ public class User implements Serializable {
 
 	private String password;
 
+	private String photolink;
+
 	@Column(name="USER_NAME")
 	private String userName;
 
@@ -62,6 +64,14 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPhotolink() {
+		return this.photolink;
+	}
+
+	public void setPhotolink(String photolink) {
+		this.photolink = photolink;
 	}
 
 	public String getUserName() {

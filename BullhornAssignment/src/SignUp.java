@@ -36,11 +36,13 @@ public class SignUp extends HttpServlet {
 		String user_name = request.getParameter("user_name");
 		String password = request.getParameter("password");
 		String motto = request.getParameter("motto");
+		String photolink = request.getParameter("photolink");
 		User tempUser=new User();
 		
 		tempUser.setUserName(user_name);
 		tempUser.setPassword(password);
 		tempUser.setMotto(motto);
+		tempUser.setPhotolink(photolink);
 		
 		DateFormat dateFormat = new SimpleDateFormat("mm/dd/yyyy");
 		Date joindate = new Date();

@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
- <title>User Profile</title>
+ <title>My Profile</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -41,6 +41,28 @@
 </ul>
 </div>
 
+
+<h3>Sent Box</h3><br>
+<table BORDER="1">
+<thead>
+<th>To</th>
+<th>Message</th>
+</thead>
+<tbody>
+${sentText}
+</tbody>
+</table><br><br>
+
+<h3>Inbox</h3><br>
+<table BORDER="1">
+<thead>
+<th>From</th>
+<th>Message</th>
+</thead>
+<tbody>
+${receivedText}
+</tbody>
+</table>
 
 
 

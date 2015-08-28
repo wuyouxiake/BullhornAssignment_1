@@ -50,7 +50,11 @@ public class GetPost extends HttpServlet {
 		String fullList = "";
 		for(int i=0;i<content.size();i++)
         {
-            fullList+="<li class=\"list-group-item\"><a href=\"GetUserDetail?user_name="+content.get(i).getUserName().replace(" ", "%20")+"\">"+content.get(i).getUserName()+"</a>: "+content.get(i).getContent()+"</li>";
+            fullList+="<li class=\"list-group-item\"><a href=\"GetUserDetail?user_name="
+            		+content.get(i).getUserName().replace(" ", "%20")
+            		+"\">"+content.get(i).getUserName()+"</a> <img src=\""+content.get(i).getPhotolink()+"\" style=\"width:40px;height:40px\"> "+": "
+            		+content.get(i).getContent()
+            		+"</li>";
             
         }
 		

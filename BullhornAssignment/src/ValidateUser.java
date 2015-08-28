@@ -54,11 +54,10 @@ public class ValidateUser extends HttpServlet {
 						.include(request, response);
 			}else{
 			String password = user.getPassword();
-			System.out.println(password);
 			if (!password.equals(tempPass)) {
 				alert = "Password not valid!";
 			} else {
-				alert = "Loged in";
+				alert = "Logged in";
 				request.getSession().setAttribute("user_name", user_name);
 			}
 			System.out.println(alert);

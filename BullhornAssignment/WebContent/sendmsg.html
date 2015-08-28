@@ -1,16 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
- <meta charset="utf-8">
+<meta charset="ISO-8859-1">
+<title>Send Message</title>
+<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
- 
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -23,16 +20,31 @@
         <li><a href="AddPost.html">Post</a></li>
         <li><a href="GetPost">Posted</a></li>
         <li><a href="search.html">Search</a></li>
-         <li><a href="sendmsg.html">Send Msg</a></li>
-         <li><a href="GetMyProfile">My Profile</a></li>
+        <li><a href="sendmsg.html">Send Msg</a></li>
+        <li><a href="GetMyProfile">My Profile</a></li>
         <li><a href="signin.html">Sign In</a></li>
         <li><a href="signup.html">Sign Up</a></li>
         <li><a href="SignOut">SignOut</a></li>
+        
       </ul>
     </div>
   </div>
-</nav>
-<p>${alert}</p><br><br>
-<a href="index.html">Home</a>
+</nav><br>
+<form class="form-horizontal" role="form" method="get" action="SendMsg">
+    
+
+
+<label for="receiver">@ </label><br>
+<input type="text" name="receiver" required>
+<br><br>
+
+<label for="message">Message</label><br>
+<input type="text" name="message" required>
+<br><br>
+
+<input type="submit" name="submit" Value="submit">
+
+</form>
+
 </body>
 </html>

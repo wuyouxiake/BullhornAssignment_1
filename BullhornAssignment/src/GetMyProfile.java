@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import postTools.DBUtil;
 import model.Content;
@@ -17,14 +18,14 @@ import model.User;
 /**
  * Servlet implementation class AddComment
  */
-@WebServlet("/GetUserDetail")
-public class GetUserDetail extends HttpServlet {
+@WebServlet("/GetMyProfile")
+public class GetMyProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetUserDetail() {
+    public GetMyProfile() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,8 +34,17 @@ public class GetUserDetail extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userName=request.getParameter("user_name");
-		EntityManager em = DBUtil.getEmFactory().createEntityManager();
+		HttpSession session = request.getSession(true);
+		String userName =(String) session.getAttribute("user_name");
+		if(userName==null){
+			response.setContentType("text/html");
+			String alert = "Please log in";
+			request.setAttribute("alert", alert);
+			getServletContext().getRequestDispatcher("/error.jsp")
+			.include(request, response);
+		}else{
+			
+			EntityManager em = DBUtil.getEmFactory().createEntityManager();
 //		
 		String qString1 = "select u from User u where u.userName = ?1";
 		TypedQuery<User> q1 = em.createQuery(qString1, User.class);
@@ -45,7 +55,6 @@ public class GetUserDetail extends HttpServlet {
 			if(userDetail ==null ||userDetail.isEmpty()){
 				userDetail=null;
 			}
-			
 		String pl = "";
 		String fullUser = "";
 		for(int i=0;i<userDetail.size();i++)
@@ -61,6 +70,7 @@ public class GetUserDetail extends HttpServlet {
 //	
 		String qString2 = "select c from Content c where c.userName = ?1 order by c.id desc";
 		TypedQuery<Content> q2 = em.createQuery(qString2, Content.class);
+		
 		q2.setParameter(1, userName);
 		List<Content> postList;
 		
@@ -68,17 +78,63 @@ public class GetUserDetail extends HttpServlet {
 			if(postList ==null ||postList.isEmpty()){
 				postList=null;
 			}
+			System.out.println("222");
 			
-		
 		String fullList = "";
+		
 		for(int i=0;i<postList.size();i++)
         {
+			System.out.println("333");
             fullList+="<li class=\"list-group-item\"><img src=\""+pl+"\" style=\"width:40px;height:40px\">"
             		+": "+postList.get(i).getContent()+"</li>";
             
         }
 		
-
+//get sent list		
+		String qString3 = "select m from Message m where m.sender = ?1 order by m.id desc";
+		TypedQuery<Message> q3 = em.createQuery(qString3, Message.class);
+		q3.setParameter(1, userName);
+		List<Message> sentList;
+		
+		sentList=q3.getResultList();
+			if(sentList ==null ||sentList.isEmpty()){
+				//sentList=null;
+			}
+			
+		
+		String sentText = "";
+		for(int i=0;i<sentList.size();i++)
+        {
+			sentText+="<tr><td>"
+            		+sentList.get(i).getReceiver()
+            		+"</td><td>"+sentList.get(i).getMessage()
+            		+"</td></tr>";
+            
+        }
+		
+//get received list		
+				String qString4 = "select m from Message m where m.receiver = ?1 order by m.id desc";
+				TypedQuery<Message> q4 = em.createQuery(qString4, Message.class);
+				q4.setParameter(1, userName);
+				List<Message> receivedList;
+				
+				receivedList=q4.getResultList();
+					if(receivedList ==null ||receivedList.isEmpty()){
+						receivedList=null;
+						}
+					
+				
+				String receivedText = "";
+				for(int i=0;i<receivedList.size();i++)
+		        {
+					receivedText+="<tr><td>"
+		          		+receivedList.get(i).getSender()
+		            		+"</td><td>"+receivedList.get(i).getMessage()
+		         		+"</td></tr>";
+		            
+		        }		
+		
+		
 		
 		//Set response content type
 				response.setContentType("text/html");
@@ -86,18 +142,24 @@ public class GetUserDetail extends HttpServlet {
 				request.setAttribute("fullUser", fullUser);
 				request.setAttribute("userName", userName);
 				request.setAttribute("fullList", fullList);
-				getServletContext().getRequestDispatcher("/profile.jsp")
+				request.setAttribute("sentText", sentText);
+				request.setAttribute("receivedText", receivedText);
+				getServletContext().getRequestDispatcher("/myprofile.jsp")
 						.forward(request, response);
 				fullList = "";
+				sentText = "";
 				fullUser = "";
+				receivedText = "";
 				postList.clear();
 				userDetail.clear();
+				sentList.clear();
+				receivedList.clear();
 		}catch(Exception e){
 		}finally{
 			em.close();
 		}
 	}
-		
+	}
 	
 
 	/**
