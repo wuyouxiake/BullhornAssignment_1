@@ -35,7 +35,6 @@ public class AddPost extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 		String user_name =(String) session.getAttribute("user_name");
-		System.out.println(user_name);
 		if(user_name==null){
 			response.setContentType("text/html");
 			String alert = "Please log in";
