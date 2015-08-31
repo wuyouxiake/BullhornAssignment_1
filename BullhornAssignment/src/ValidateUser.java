@@ -1,4 +1,5 @@
 import java.io.IOException;
+
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
@@ -36,42 +37,51 @@ public class ValidateUser extends HttpServlet {
 		String tempPass = request.getParameter("password");
 
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
-		String qString = "select u from User u where u.userName = :user_name";
-		TypedQuery<User> q = em.createQuery(qString, User.class);
-		q.setParameter("user_name", user_name);
-		User user = new User();
+		
+		
 		String alert = null;
+
 		try {
-			user = q.getSingleResult();
-			if(user==null){
+			TypedQuery<Long> query = em.createQuery("SELECT COUNT(u) FROM User u WHERE u.userName = :user_name",Long.class);
+			query.setParameter("user_name", user_name);
+			long totalUser = query.getSingleResult();
+			System.out.println(totalUser);
+			if (totalUser <= 0) {
 				alert = "User does not exist!";
 				// Set response content type
 				response.setContentType("text/html");
 
 				request.setAttribute("alert", alert);
 
-				getServletContext().getRequestDispatcher("/successful.jsp")
-						.include(request, response);
-			}else{
-			String password = user.getPassword();
-			if (!password.equals(tempPass)) {
-				alert = "Password not valid!";
+				getServletContext().getRequestDispatcher("/error.jsp").include(
+						request, response);
+
 			} else {
-				alert = "Logged in";
-				request.getSession().setAttribute("user_name", user_name);
-			}
-			System.out.println(alert);
+				String qString = "select u from User u where u.userName = :user_name";
+				TypedQuery<User> q = em.createQuery(qString, User.class);
+				q.setParameter("user_name", user_name);
+				User user = new User();
+				user = q.getSingleResult();
+				String password = user.getPassword();
+				if (!password.equals(tempPass)) {
+					alert = "Password not valid!";
+				} else {
+					alert = "Logged in";
+					request.getSession().setAttribute("user_name", user_name);
+				}
+				System.out.println(alert);
 
-			// Set response content type
-			response.setContentType("text/html");
+				// Set response content type
+				response.setContentType("text/html");
 
-			request.setAttribute("alert", alert);
+				request.setAttribute("alert", alert);
 
-			getServletContext().getRequestDispatcher("/successful.jsp")
-					.forward(request, response);
+				getServletContext().getRequestDispatcher("/successful.jsp")
+						.forward(request, response);
 			}
 
 		} catch (Exception e) {
+			System.out.println("Error!");
 		} finally {
 			em.close();
 		}

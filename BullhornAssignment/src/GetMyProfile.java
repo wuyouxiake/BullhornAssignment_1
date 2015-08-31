@@ -50,13 +50,16 @@ public class GetMyProfile extends HttpServlet {
 		TypedQuery<User> q1 = em.createQuery(qString1, User.class);
 		q1.setParameter(1, userName);
 		List<User> userDetail;
+		String pl = "";
+		String fullList = "";
+		String fullUser = "";
 		try{
 			userDetail=q1.getResultList();
 			if(userDetail ==null ||userDetail.isEmpty()){
 				userDetail=null;
-			}
-		String pl = "";
-		String fullUser = "";
+			}else{
+		
+		
 		for(int i=0;i<userDetail.size();i++)
         {
 			fullUser="<li class=\"list-group-item\">User Name: "+userDetail.get(i).getUserName()+"</li>"
@@ -64,8 +67,7 @@ public class GetMyProfile extends HttpServlet {
 					+"<li class=\"list-group-item\">Motto: "+userDetail.get(i).getMotto()+"</li>"
 					+"<li class=\"list-group-item\">Join Date: "+userDetail.get(i).getJoindate()+"</li><br><br>";
 			pl=userDetail.get(i).getPhotolink();
-            
-        }
+        }}
 		
 //	
 		String qString2 = "select c from Content c where c.userName = ?1 order by c.id desc";
@@ -73,56 +75,53 @@ public class GetMyProfile extends HttpServlet {
 		
 		q2.setParameter(1, userName);
 		List<Content> postList;
-		
 			postList=q2.getResultList();
 			if(postList ==null ||postList.isEmpty()){
 				postList=null;
-			}
+			}else{
 			
 			
-		String fullList = "";
+		
 		
 		for(int i=0;i<postList.size();i++)
         {
-			
             fullList+="<li class=\"list-group-item\"><img src=\""+pl+"\" style=\"width:40px;height:40px\">"
             		+": "+postList.get(i).getContent()+"</li>";
-            
-        }
+        }}
 //get sent list		
+		String sentText = "";
 		String qString3 = "select m from Message m where m.sender = ?1 order by m.id desc";
 		TypedQuery<Message> q3 = em.createQuery(qString3, Message.class);
 		q3.setParameter(1, userName);
 		List<Message> sentList;
-		
 		sentList=q3.getResultList();
 			if(sentList ==null ||sentList.isEmpty()){
 				sentList=null;
-			}
+			}else{
 			
-		String sentText = "";
+		
 		for(int i=0;i<sentList.size();i++)
         {
 			sentText+="<tr><td>"
             		+sentList.get(i).getReceiver()
             		+"</td><td>"+sentList.get(i).getMessage()
             		+"</td></tr>";
-            
         }
-		
+			}
 //get received list		
+			String receivedText = "";
 				String qString4 = "select m from Message m where m.receiver = ?1 order by m.id desc";
 				TypedQuery<Message> q4 = em.createQuery(qString4, Message.class);
 				q4.setParameter(1, userName);
 				List<Message> receivedList;
-				
 				receivedList=q4.getResultList();
+				
 					if(receivedList ==null ||receivedList.isEmpty()){
 						receivedList=null;
-						}
+						}else{
 					
+				System.out.println("131313");
 				
-				String receivedText = "";
 				for(int i=0;i<receivedList.size();i++)
 		        {
 					receivedText+="<tr><td>"
@@ -130,9 +129,10 @@ public class GetMyProfile extends HttpServlet {
 		            		+"</td><td>"+receivedList.get(i).getMessage()
 		         		+"</td></tr>";
 		            
-		        }		
+		        }	
+				}	
 		
-				
+				System.out.println("151515");
 		
 		//Set response content type
 				response.setContentType("text/html");
@@ -152,6 +152,7 @@ public class GetMyProfile extends HttpServlet {
 				userDetail.clear();
 				sentList.clear();
 				receivedList.clear();
+				System.out.println("151515");
 		}catch(Exception e){
 		}finally{
 			em.close();

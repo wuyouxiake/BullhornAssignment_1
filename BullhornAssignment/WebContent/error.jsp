@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Error!</title>
+<title>Login Failed</title>
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -22,15 +22,17 @@
         <li><a href="AddPost.html">Post</a></li>
         <li><a href="GetPost">Posted</a></li>
         <li><a href="search.html">Search</a></li>
-        <li><a href="sendmsg.html">Send Msg</a></li>
-        <li><a href="GetMyProfile">My Profile</a></li>
+         <li><a href="sendmsg.html">Send Msg</a></li>
+         <li><a href="GetMyProfile">My Profile</a></li>
         <li><a href="signin.html">Sign In</a></li>
         <li><a href="signup.html">Sign Up</a></li>
         <li><a href="SignOut">SignOut</a></li>
-        
+      </ul>
     </div>
   </div>
 </nav>
 ${alert}
+<br><br>
+<a href="index.html">Home</a>
 </body>
 </html>
