@@ -48,7 +48,7 @@
 <form class="form-horizontal" role="form" method="get" action="SearchUserPost">
  <input type="hidden" name="userName" value="${userName}">   
 
-<label for="target">Search for: </label><br>
+<label for="target">Search for current user's posts: </label><br>
 <input type="text" name="target" required>
 
 

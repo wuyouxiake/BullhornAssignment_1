@@ -69,7 +69,6 @@ public class ValidateUser extends HttpServlet {
 					alert = "Logged in";
 					request.getSession().setAttribute("user_name", user_name);
 				}
-				System.out.println(alert);
 
 				// Set response content type
 				response.setContentType("text/html");

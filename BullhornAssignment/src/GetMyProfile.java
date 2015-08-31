@@ -120,7 +120,6 @@ public class GetMyProfile extends HttpServlet {
 						receivedList=null;
 						}else{
 					
-				System.out.println("131313");
 				
 				for(int i=0;i<receivedList.size();i++)
 		        {
@@ -132,7 +131,6 @@ public class GetMyProfile extends HttpServlet {
 		        }	
 				}	
 		
-				System.out.println("151515");
 		
 		//Set response content type
 				response.setContentType("text/html");
@@ -152,7 +150,6 @@ public class GetMyProfile extends HttpServlet {
 				userDetail.clear();
 				sentList.clear();
 				receivedList.clear();
-				System.out.println("151515");
 		}catch(Exception e){
 		}finally{
 			em.close();

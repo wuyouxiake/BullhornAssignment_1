@@ -52,7 +52,11 @@ public class SearchUserPost extends HttpServlet {
 			contentList=q.getResultList();
 			if(contentList ==null ||contentList.isEmpty()){
 				contentList=null;
-			}
+				String alert="No result!";
+				request.setAttribute("alert", alert);
+				getServletContext().getRequestDispatcher("/error.jsp")
+				.forward(request, response);
+			}else{
 		String fullList = "";
 		for(int i=0;i<contentList.size();i++)
         {
@@ -64,6 +68,7 @@ public class SearchUserPost extends HttpServlet {
 		
 		getServletContext().getRequestDispatcher("/listSearch.jsp")
 		.forward(request, response);
+			}
 		}catch(Exception e){
 			}
 		
